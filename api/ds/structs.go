@@ -38,12 +38,12 @@ type FlagsS struct {
 	EndCode             int    `json:"endcode"`
 }
 
-// /api/news (response is data)
-type NewsC GenericC
-
 // /api/signin
 type SignInC GenericC
 type SignInS GenericS
+
+// /api/news (response is data)
+type NewsC GenericC
 
 // /api/contestlist
 type ContestListC GenericC

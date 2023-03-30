@@ -55,10 +55,10 @@ func HandleRequest(w http.ResponseWriter, r *http.Request) {
 		response, err = handleUsername(body)
 	case "/api/flags": // get server flags and user info
 		response, err = handleFlags(body)
-	case "/api/news": // get news
-		response, err = handleNews(body)
 	case "/api/signin": // make presence known to server?
 		response, err = handleSignIn(body)
+	case "/api/news": // get news
+		response, err = handleNews(body)
 	case "/api/contestlist": // get contest list
 		response, err = handleContestList(body)
 	case "/api/rpglist", "/api/rpglisttitle", "/api/rpglistuname", "/api/rpglistsuid", "/api/rpglistpassword": //, "/api/myrpglist": // get rpg list of some kind
@@ -78,7 +78,7 @@ func HandleRequest(w http.ResponseWriter, r *http.Request) {
 	}
 	if err != nil {
 		log.Printf("ERROR: handler for %s returned error: %s\n", r.RequestURI, err)
-	
+
 		w.WriteHeader(http.StatusNoContent) // write header so we don't cause bad gateway
 		return
 	}
@@ -115,20 +115,20 @@ func handleFlags(body []byte) ([]byte, error) {
 	}
 
 	flagsS := &FlagsS{
-		ID: "1", // placeholder
-		Region: flagsC.Region,
-		Lang: flagsC.Lang,
-		Maintenance: "0",
-		SerchContest: "0",
-		SerchFamer: "0",
+		ID:                  "1", // placeholder
+		Region:              flagsC.Region,
+		Lang:                flagsC.Lang,
+		Maintenance:         "0",
+		SerchContest:        "0",
+		SerchFamer:          "0",
 		SerchOtherCountries: "1",
-		ContestMode: "0",
-		SUID: "1", // placeholder
-		UName: base64.StdEncoding.EncodeToString([]byte("reFES User")), // placeholder
-		Flag1: -1,
-		Flag2: -1,
-		Flag3: -1,
-		EndCode: 0,
+		ContestMode:         "0",
+		SUID:                "1",                                                     // placeholder
+		UName:               base64.StdEncoding.EncodeToString([]byte("reFES User")), // placeholder
+		Flag1:               -1,
+		Flag2:               -1,
+		Flag3:               -1,
+		EndCode:             0,
 	}
 
 	response, err := json.Marshal(flagsS)
@@ -137,11 +137,6 @@ func handleFlags(body []byte) ([]byte, error) {
 	}
 
 	return response, nil
-}
-
-func handleNews(body []byte) ([]byte, error) {
-	// TODO: do something here
-	return nil, nil
 }
 
 func handleSignIn(body []byte) ([]byte, error) {
@@ -165,6 +160,11 @@ func handleSignIn(body []byte) ([]byte, error) {
 	return response, nil
 }
 
+func handleNews(body []byte) ([]byte, error) {
+	// TODO: do something here
+	return nil, nil
+}
+
 func handleContestList(body []byte) ([]byte, error) {
 	contestListC := &ContestListC{}
 	err := json.Unmarshal(body, contestListC)
@@ -179,7 +179,7 @@ func handleContestList(body []byte) ([]byte, error) {
 
 	contestListS := &ContestListS{
 		ContestListEntries: contestListEntries,
-		EndCode: 0,
+		EndCode:            0,
 	}
 
 	response, err := json.Marshal(contestListS)
@@ -247,17 +247,17 @@ func handleRpgList(body []byte, kind string) ([]byte, error) {
 
 	rpgListEntries, err := getRpgListEntries(rpgListC.Region, filter, keyword, sort, direction, rpgListC.RecNum, rpgListC.Offset)
 	if err != nil {
-		return nil ,err
+		return nil, err
 	}
 
 	rpgListS := &RpgListS{
 		RpgListEntries: rpgListEntries,
-		EndCode: 0,
+		EndCode:        0,
 	}
 
 	response, err := json.Marshal(rpgListS)
 	if err != nil {
-		return nil ,err
+		return nil, err
 	}
 
 	return response, nil
