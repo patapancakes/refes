@@ -40,9 +40,8 @@ func getContestListEntries(region string) (map[string]ContestListEntry, error) {
 
 	defer results.Close()
 
-	var cnt int
 	contestListEntries := make(map[string]ContestListEntry)
-	for results.Next() {
+	for cnt := 0; results.Next(); cnt++ {
 		var id int
 		var name string
 		var applyStart, applyEnd, reviewStart, reviewEnd, excStart, excEnd time.Time
@@ -61,8 +60,6 @@ func getContestListEntries(region string) (map[string]ContestListEntry, error) {
 			ExcStart:    excStart.Format("2006-01-02 15:04:05"),
 			ExcEnd:      excEnd.Format("2006-01-02 15:04:05"),
 		}
-
-		cnt++
 	}
 
 	return contestListEntries, nil
@@ -108,9 +105,8 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, count, o
 
 	defer results.Close()
 
-	var cnt int
 	rpgListEntries := make(map[string]RpgListEntry)
-	for results.Next() {
+	for cnt := 0; results.Next(); cnt++ {
 		var sid, suid, datablocksize, version, packageversion, edit, attribute, award, famer, contest, owner, dlcount int
 		var title, uname, password, lang, comment, genre string
 		var updt time.Time
@@ -217,8 +213,6 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, count, o
 		}
 
 		rpgListEntries[strconv.Itoa(cnt)] = rpgListEntry
-
-		cnt++
 	}
 
 	return rpgListEntries, nil
