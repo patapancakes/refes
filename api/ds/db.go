@@ -69,9 +69,9 @@ func getContestListEntries(region string) (map[string]ContestListEntry, error) {
 // sort | updt - dlcount - reviewave
 // direction | asc - desc
 func getRpgListEntries(region, filter, keyword, sort, direction string, count, offset int) (map[string]RpgListEntry, error) {
-	table := "contests_us"
+	table := "games_us"
 	if region == "JPN" {
-		table = "contests_jp"
+		table = "games_jp"
 	}
 
 	query := "SELECT * FROM " + table
