@@ -267,7 +267,7 @@ func handleRpgList(body []byte, kind string) ([]byte, error) {
 			return nil, err
 		}
 
-		if !regexp.MustCompile("^[a-zA-Z0-9]+$").Match(decoded) {
+		if !regexp.MustCompile("^[a-zA-Z0-9 ]+$").Match(decoded) {
 			return nil, fmt.Errorf("keyword \"%s\" not allowed by regex", decoded)
 		}
 
