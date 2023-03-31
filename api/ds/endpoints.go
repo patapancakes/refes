@@ -263,7 +263,7 @@ func handleRpgList(body []byte, kind string) ([]byte, error) {
 
 	var keyword string
 	if filter != "" {
-		decoded, err := base64.StdEncoding.DecodeString(rpgListC.Keyword)
+		decoded, err := base64.RawStdEncoding.DecodeString(rpgListC.Keyword)
 		if err != nil {
 			return nil, err
 		}
