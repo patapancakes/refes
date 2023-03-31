@@ -8,7 +8,7 @@ import (
 )
 
 func Init(address *string, port *int) error {
-	http.HandleFunc("/api", ds.HandleRequest)
+	http.HandleFunc("/", ds.HandleRequest)
 
 	log.Printf("INFO: server starting on %s:%d\n", *address, *port)
 
