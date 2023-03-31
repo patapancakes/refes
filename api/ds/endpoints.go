@@ -91,7 +91,7 @@ func HandleRequest(w http.ResponseWriter, r *http.Request) {
 
 		response = make([]byte, len(respUtf16)*2)
 		for i, v := range respUtf16 {
-			binary.BigEndian.PutUint16(response[i*2:i*2+1], v)
+			binary.LittleEndian.PutUint16(response[i*2:i*2+2], v)
 		}
 	}
 
