@@ -2,6 +2,7 @@ package ds
 
 import (
 	"encoding/base64"
+	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -11,6 +12,8 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"unicode/utf16"
+	"unicode/utf8"
 
 	"github.com/klauspost/compress/zstd"
 )
@@ -81,6 +84,15 @@ func HandleRequest(w http.ResponseWriter, r *http.Request) {
 
 		w.WriteHeader(http.StatusNoContent) // write header so we don't cause bad gateway
 		return
+	}
+
+	if utf8.Valid(response) {
+		respUtf16 := utf16.Encode([]rune(string(response)))
+
+		response = make([]byte, len(respUtf16)*2)
+		for i, v := range respUtf16 {
+			binary.BigEndian.PutUint16(response[i*2:i*2+1], v)
+		}
 	}
 
 	w.Write(response)
