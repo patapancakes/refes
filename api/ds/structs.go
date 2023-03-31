@@ -7,7 +7,7 @@ type GenericC struct {
 }
 
 type GenericS struct {
-	EndCode string `json:"EndCode"`
+	EndCode int `json:"EndCode"`
 }
 
 // /api/username

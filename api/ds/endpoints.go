@@ -96,7 +96,7 @@ func handleUsername(body []byte) ([]byte, error) {
 	// TODO: do something here
 
 	usernameS := &UsernameS{
-		EndCode: "0",
+		EndCode: 0,
 	}
 
 	response, err := json.Marshal(usernameS)
@@ -149,7 +149,7 @@ func handleSignIn(body []byte) ([]byte, error) {
 	// TODO: do something here
 
 	signInS := &SignInS{
-		EndCode: "0",
+		EndCode: 0,
 	}
 
 	response, err := json.Marshal(signInS)
