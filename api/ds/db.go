@@ -90,6 +90,8 @@ func getContestListEntries(region string) (map[string]ContestListEntry, error) {
 // sort | updt - dlcount - reviewave
 // direction | asc - desc
 func getRpgListEntries(region, filter, keyword, sort, direction string, count, offset int) (map[string]RpgListEntry, error) {
+	params := make([]any, 0, 1) // HACK: use []any to allow prepared statements AND "query building"
+
 	table := "games_us"
 	if region == "JPN" {
 		table = "games_jp"
@@ -103,7 +105,8 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, count, o
 		if filter == "password" {
 			query += " = \"" + keyword + "\"" // do not use wildcard for password filter
 		} else {
-			query += " LIKE \"%" + keyword + "%\""
+			params = append(params, keyword)
+			query += " LIKE CONCAT('%', ?, '%')"
 		}
 	}
 
@@ -119,7 +122,7 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, count, o
 		}
 	}
 
-	results, err := db.Query(query)
+	results, err := db.Query(query, params...)
 	if err != nil {
 		return nil, err
 	}

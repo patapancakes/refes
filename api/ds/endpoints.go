@@ -28,7 +28,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"regexp"
 	"unicode/utf16"
 	"unicode/utf8"
 
@@ -265,10 +264,6 @@ func handleRpgList(body []byte, kind string) ([]byte, error) {
 		decoded, err := base64.RawStdEncoding.DecodeString(rpgListC.Keyword)
 		if err != nil {
 			return nil, err
-		}
-
-		if !regexp.MustCompile("^[a-zA-Z0-9 ]+$").Match(decoded) {
-			return nil, fmt.Errorf("keyword \"%s\" not allowed by regex", decoded)
 		}
 
 		keyword = string(decoded)
