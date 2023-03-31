@@ -191,7 +191,7 @@ type MyRpgListS RpgListS
 // /api/rpgdownload (response is data)
 type RpgDownloadC struct {
 	Ver      string `json:"ver"`
-	SID      string `json:"sid"`
+	SID      int    `json:"sid"`
 	Region   string `json:"region"`
 	Language string `json:"lang"`
 	Token    string `json:"token"`

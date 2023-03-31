@@ -29,7 +29,6 @@ import (
 	"net/url"
 	"os"
 	"regexp"
-	"strconv"
 	"unicode/utf16"
 	"unicode/utf8"
 
@@ -300,18 +299,13 @@ func handleRpgDownload(body []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	sid, err := strconv.Atoi(rpgDownloadC.SID)
-	if err != nil {
-		return nil, err
-	}
-
-	public, err := getRpgPublic(sid, rpgDownloadC.Region)
+	public, err := getRpgPublic(rpgDownloadC.SID, rpgDownloadC.Region)
 	if err != nil {
 		return nil, err
 	}
 
 	if !public {
-		return nil, fmt.Errorf("attempt to download non-public game: %d/%s", sid, rpgDownloadC.Region)
+		return nil, fmt.Errorf("attempt to download non-public game: %d/%s", rpgDownloadC.SID, rpgDownloadC.Region)
 	}
 
 	gameDir := "games_us"
@@ -319,7 +313,7 @@ func handleRpgDownload(body []byte) ([]byte, error) {
 		gameDir = "games_jp"
 	}
 
-	file, err := os.ReadFile(fmt.Sprintf("%s/game%06d.zst", gameDir, sid))
+	file, err := os.ReadFile(fmt.Sprintf("%s/game%06d.zst", gameDir, rpgDownloadC.SID))
 	if err != nil {
 		return nil, err
 	}
