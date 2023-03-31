@@ -98,10 +98,10 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, count, o
 	query := "SELECT * FROM " + table
 
 	if filter != "" {
-		query += " WHERE " + filter + " ="
+		query += " WHERE " + filter
 
 		if filter == "password" {
-			query += " " + keyword // do not use wildcard for password filter
+			query += " = " + keyword // do not use wildcard for password filter
 		} else {
 			query += " LIKE \"%" + keyword + "%\""
 		}
