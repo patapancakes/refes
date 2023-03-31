@@ -46,7 +46,7 @@ func HandleRequest(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		body = []byte(bodyUnescaped[:5])
+		body = []byte(bodyUnescaped[5:])
 	}
 
 	var response []byte
