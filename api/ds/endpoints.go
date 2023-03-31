@@ -82,7 +82,7 @@ func HandleRequest(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("ERROR: handler for %s returned error: %s\n", r.RequestURI, err)
 
-		w.WriteHeader(http.StatusNoContent) // write header so we don't cause bad gateway
+		w.WriteHeader(http.StatusBadRequest) // write header so we don't cause bad gateway
 		return
 	}
 
