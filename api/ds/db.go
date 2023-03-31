@@ -246,7 +246,7 @@ func getRpgPublic(sid int, region string) (bool, error) {
 	}
 
 	var count int
-	err := db.QueryRow("SELECT COUNT(*) FROM "+table+" WHERE suid = ? AND region = ?", sid, region).Scan(&count)
+	err := db.QueryRow("SELECT COUNT(*) FROM "+table+" WHERE suid = ?", sid).Scan(&count)
 	if err != nil {
 		return false, err
 	}
