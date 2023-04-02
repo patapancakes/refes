@@ -52,7 +52,7 @@ type FlagsS struct {
 	UName               string `json:"uname"`
 	Flag1               int    `json:"flag1"`
 	Flag2               int    `json:"flag2"`
-	Flag3               int    `json:"flag3"`
+	Flag3               int    `json:"flag3"` // current news post id, set to -1 to disable
 	EndCode             int    `json:"endcode"`
 }
 
