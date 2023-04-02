@@ -89,7 +89,7 @@ func getContestListEntries(region string) (map[string]ContestListEntry, error) {
 // filter | title - uname - suid - password
 // sort | updt - dlcount - reviewave
 // direction | asc - desc
-func getRpgListEntries(region, filter, keyword, sort, direction string, count, offset int) (map[string]RpgListEntry, error) {
+func getRpgListEntries(region, filter, keyword, sort, direction string, contest, famer, count, offset int) (map[string]RpgListEntry, error) {
 	params := make([]any, 0, 1) // HACK: use []any to allow prepared statements AND "query building"
 
 	table := "games_us"
@@ -99,7 +99,8 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, count, o
 
 	query := "SELECT * FROM " + table
 
-	if filter != "" {
+	switch {
+	case filter != "":
 		query += " WHERE " + filter
 
 		if filter == "password" {
@@ -108,6 +109,10 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, count, o
 			params = append(params, keyword)
 			query += " LIKE CONCAT('%', ?, '%')"
 		}
+	case contest != 0:
+		query += " WHERE contest = " + strconv.Itoa(contest)
+	case famer != 0:
+		query += " WHERE famer = " + strconv.Itoa(famer)
 	}
 
 	if sort != "" {
