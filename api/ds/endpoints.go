@@ -294,7 +294,7 @@ func handleRpgDownload(body []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	public, err := getRpgPublic(rpgDownloadC.SID, rpgDownloadC.Language)
+	public, err := getRpgPublic(rpgDownloadC.SID, rpgDownloadC.Region)
 	if err != nil {
 		return nil, err
 	}
