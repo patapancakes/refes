@@ -90,7 +90,7 @@ func getContestListEntries(region string) (map[string]ContestListEntry, error) {
 // sort | updt - dlcount - reviewave
 // direction | asc - desc
 func getRpgListEntries(region, filter, keyword, sort, direction string, contest, famer, count, offset int) (map[string]RpgListEntry, error) {
-	params := make([]any, 0, 1) // HACK: use []any to allow prepared statements AND "query building"
+	var params []any
 
 	table := "games_us"
 	if region == "JPN" {
@@ -111,9 +111,11 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, contest,
 
 		params = append(params, keyword)
 	case contest != 0:
-		query += " WHERE contest = " + strconv.Itoa(contest)
+		query += " WHERE contest = ?"
+		params = append(params, contest)
 	case famer != 0:
-		query += " WHERE famer = " + strconv.Itoa(famer)
+		query += " WHERE famer = ?"
+		params = append(params, famer)
 	}
 
 	if sort != "" {
@@ -121,10 +123,12 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, contest,
 	}
 
 	if count > 0 {
-		query += " LIMIT " + strconv.Itoa(count)
+		query += " LIMIT ?"
+		params = append(params, count)
 
 		if offset > 0 { // nested because OFFSET without LIMIT is pointless
-			query += " OFFSET " + strconv.Itoa(offset)
+			query += " OFFSET ?"
+			params = append(params, offset)
 		}
 	}
 
