@@ -22,6 +22,7 @@ import (
 	"encoding/base64"
 	"encoding/binary"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -190,7 +191,7 @@ func handleSignIn(body []byte) ([]byte, error) {
 
 func handleNews(body []byte) ([]byte, error) {
 	// TODO: do something here
-	return nil, nil
+	return nil, errors.New("not implemented")
 }
 
 func handleContestList(body []byte) ([]byte, error) {
@@ -328,20 +329,20 @@ func handleRpgDownload(body []byte) ([]byte, error) {
 
 func handleRpgReview(body []byte) ([]byte, error) {
 	// TODO: do something here
-	return nil, nil
+	return nil, errors.New("not implemented")
 }
 
 func handleInfomercial(body []byte) ([]byte, error) {
 	// TODO: do something here
-	return nil, nil
+	return nil, errors.New("not implemented")
 }
 
 func handleRpgUpload(body []byte) ([]byte, error) {
 	// TODO: do something here
-	return nil, nil
+	return nil, errors.New("not implemented")
 }
 
 func handleRpgDelete(body []byte) ([]byte, error) {
 	// TODO: do something here
-	return nil, nil
+	return nil, errors.New("not implemented")
 }
