@@ -30,17 +30,17 @@ import (
 )
 
 const (
-	user   = ""
-	pass   = ""
-	proto  = ""
-	host   = ""
-	dbname = ""
+	user    = ""
+	pass    = ""
+	proto   = ""
+	address = ""
+	dbname  = ""
 )
 
 var db = newDbConn()
 
 func newDbConn() *sql.DB {
-	conn, err := sql.Open("mysql", fmt.Sprintf("%s:%s@%s(%s)/%s?parseTime=true", user, pass, proto, host, dbname))
+	conn, err := sql.Open("mysql", fmt.Sprintf("%s:%s@%s(%s)/%s?parseTime=true", user, pass, proto, address, dbname))
 	if err != nil {
 		panic(err)
 	}
