@@ -132,7 +132,7 @@ func handleContestList(body []byte) ([]byte, error) {
 	return response, nil
 }
 
-func handleRpgList(body []byte, kind string) ([]byte, error) {
+func handleRpgList(body []byte, filter string) ([]byte, error) {
 	rpgListC := &RpgListC{}
 	err := json.Unmarshal(body, rpgListC)
 	if err != nil {
@@ -161,18 +161,6 @@ func handleRpgList(body []byte, kind string) ([]byte, error) {
 		}
 	}
 
-	var filter string
-	switch kind {
-	case "rpglisttitle":
-		filter = "title"
-	case "rpglistuname":
-		filter = "uname"
-	case "rpglistsuid":
-		filter = "suid"
-	case "rpglistpassword":
-		filter = "password"
-	}
-
 	var keyword string
 	if filter != "" {
 		decoded, err := base64.RawStdEncoding.DecodeString(rpgListC.Keyword)
@@ -199,6 +187,11 @@ func handleRpgList(body []byte, kind string) ([]byte, error) {
 	}
 
 	return response, nil
+}
+
+func handleMyRpgList(body []byte) ([]byte, error) {
+	// TODO: do something here
+	return nil, errors.New("not implemented")
 }
 
 func handleRpgDownload(body []byte) ([]byte, error) {

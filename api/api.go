@@ -88,8 +88,10 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		response, err = handleNews(body)
 	case "/api/contestlist": // get contest list
 		response, err = handleContestList(body)
-	case "/api/rpglist", "/api/rpglisttitle", "/api/rpglistuname", "/api/rpglistsuid", "/api/rpglistpassword": //, "/api/myrpglist": // get rpg list of some kind
-		response, err = handleRpgList(body, r.RequestURI[5:])
+	case "/api/rpglist", "/api/rpglisttitle", "/api/rpglistuname", "/api/rpglistsuid", "/api/rpglistpassword": // get rpg list of some kind
+		response, err = handleRpgList(body, r.RequestURI[12:])
+	case "/api/myrpglist": // get your uploaded rpgs
+		response, err = handleMyRpgList(body)
 	case "/api/rpgdownload": // download rpg
 		response, err = handleRpgDownload(body)
 	case "/api/rpgreview": // review rpg
