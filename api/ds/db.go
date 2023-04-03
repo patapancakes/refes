@@ -104,11 +104,12 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, contest,
 		query += " WHERE " + filter
 
 		if filter == "password" {
-			query += " = \"" + keyword + "\"" // do not use wildcard for password filter
+			query += " = ?" // do not use wildcard for password filter
 		} else {
-			params = append(params, keyword)
 			query += " LIKE CONCAT('%', ?, '%')"
 		}
+
+		params = append(params, keyword)
 	case contest != 0:
 		query += " WHERE contest = " + strconv.Itoa(contest)
 	case famer != 0:
