@@ -57,7 +57,7 @@ func handleFlags(body []byte) ([]byte, error) {
 	}
 
 	flagsS := &FlagsS{
-		ID:                  "1", // placeholder
+		Id:                  "1", // placeholder
 		Region:              flagsC.Region,
 		Lang:                flagsC.Lang,
 		Maintenance:         "0",
@@ -65,8 +65,8 @@ func handleFlags(body []byte) ([]byte, error) {
 		SerchFamer:          "0",
 		SerchOtherCountries: "1",
 		ContestMode:         "0",
-		SUID:                "1",                                                     // placeholder
-		UName:               base64.StdEncoding.EncodeToString([]byte("reFES User")), // placeholder
+		Suid:                "1",                                                     // placeholder
+		Uname:               base64.StdEncoding.EncodeToString([]byte("reFES User")), // placeholder
 		Flag1:               -1,
 		Flag2:               -1,
 		Flag3:               -1,
@@ -149,9 +149,9 @@ func handleRpgList(body []byte, kind string) ([]byte, error) {
 		if rpgListC.SortUpdt == "desc" {
 			direction = "DESC"
 		}
-	case rpgListC.SortDLCount != "":
+	case rpgListC.SortDlCount != "":
 		sort = "dlcount"
-		if rpgListC.SortDLCount == "desc" {
+		if rpgListC.SortDlCount == "desc" {
 			direction = "DESC"
 		}
 	case rpgListC.SortReviewAve != "":
@@ -208,13 +208,13 @@ func handleRpgDownload(body []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	public, err := getRpgPublic(rpgDownloadC.SID, rpgDownloadC.Region)
+	public, err := getRpgPublic(rpgDownloadC.Sid, rpgDownloadC.Region)
 	if err != nil {
 		return nil, err
 	}
 
 	if !public {
-		return nil, fmt.Errorf("attempt to download non-public game: %d/%s", rpgDownloadC.SID, rpgDownloadC.Region)
+		return nil, fmt.Errorf("attempt to download non-public game: %d/%s", rpgDownloadC.Sid, rpgDownloadC.Region)
 	}
 
 	gameDir := "games_us"
@@ -222,7 +222,7 @@ func handleRpgDownload(body []byte) ([]byte, error) {
 		gameDir = "games_jp"
 	}
 
-	file, err := os.ReadFile(fmt.Sprintf("%s/game%06d.zst", gameDir, rpgDownloadC.SID))
+	file, err := os.ReadFile(fmt.Sprintf("%s/game%06d.zst", gameDir, rpgDownloadC.Sid))
 	if err != nil {
 		return nil, err
 	}

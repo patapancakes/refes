@@ -35,14 +35,14 @@ type UsernameC struct {
 	Region string `json:"region"`
 	Lang   string `json:"lang"`
 	Token  string `json:"token"`
-	UName  string `json:"uname"`
+	Uname  string `json:"uname"`
 }
 type UsernameS GenericS
 
 // /api/flags
 type FlagsC GenericC
 type FlagsS struct {
-	ID                  string `json:"id"`
+	Id                  string `json:"id"`
 	Region              string `json:"region"`
 	Lang                string `json:"lang"`
 	Maintenance         string `json:"maintenance"`
@@ -50,8 +50,8 @@ type FlagsS struct {
 	SerchFamer          string `json:"serchfamer"`          // intentionally misspelled
 	SerchOtherCountries string `json:"serchothercountries"` // intentionally misspelled
 	ContestMode         string `json:"contestmode"`
-	SUID                string `json:"suid"`
-	UName               string `json:"uname"`
+	Suid                string `json:"suid"`
+	Uname               string `json:"uname"`
 	Flag1               int    `json:"flag1"`
 	Flag2               int    `json:"flag2"`
 	Flag3               int    `json:"flag3"` // current news post id, set to -1 to disable
@@ -72,7 +72,7 @@ type ContestListS struct {
 	EndCode            int `json:"endcode"`
 }
 type ContestListEntry struct {
-	ID          string `json:"id"`
+	Id          string `json:"id"`
 	Name        string `json:"name"`
 	ApplyStart  string `json:"apply_start"`
 	ApplyEnd    string `json:"apply_end"`
@@ -88,7 +88,7 @@ type RpgListC struct {
 	StartUpdt     int    `json:"startupdt"`
 	Contest       int    `json:"contest"`
 	SortUpdt      string `json:"sortupdt"`      // used for sorting
-	SortDLCount   string `json:"sortdlcount"`   // used for sorting
+	SortDlCount   string `json:"sortdlcount"`   // used for sorting
 	SortReviewAve string `json:"sortreviewave"` // used for sorting
 	Keyword       string `json:"keyword"`       // used for searching
 	Offset        int    `json:"offset"`
@@ -104,10 +104,10 @@ type RpgListS struct {
 	EndCode        int `json:"endcode"`
 }
 type RpgListEntry struct {
-	SID            string `json:"sid"`
-	SUID           string `json:"suid"`
+	Sid            string `json:"sid"`
+	Suid           string `json:"suid"`
 	Title          string `json:"title"`
-	UName          string `json:"uname"`
+	Uname          string `json:"uname"`
 	Password       string `json:"password"`
 	Updt           string `json:"updt"`
 	DataBlockSize  string `json:"datablocksize"`
@@ -122,7 +122,7 @@ type RpgListEntry struct {
 	Comment        string `json:"comment"`
 	Contest        string `json:"contest"`
 	Owner          string `json:"owner"`
-	DLCount        string `json:"dlcount"`
+	DlCount        string `json:"dlcount"`
 
 	Genre1  string `json:"genre1,omitempty"`  // Fantasy
 	Genre2  string `json:"genre2,omitempty"`  // SF
@@ -175,12 +175,12 @@ type RpgListTitleC RpgListC
 type RpgListTitleS RpgListS
 
 // /api/rpglistuname
-type RpgListUNameC RpgListC
-type RpgListUNameS RpgListS
+type RpgListUnameC RpgListC
+type RpgListUnameS RpgListS
 
 // /api/rpglistsuid
-type RpgListSUIDC RpgListC
-type RpgListSUIDS RpgListS
+type RpgListSuidC RpgListC
+type RpgListSuidS RpgListS
 
 // /api/rpglistpassword
 type RpgListPasswordC RpgListC
@@ -193,7 +193,7 @@ type MyRpgListS RpgListS
 // /api/rpgdownload (response is data)
 type RpgDownloadC struct {
 	Ver      string `json:"ver"`
-	SID      int    `json:"sid"`
+	Sid      int    `json:"sid"`
 	Region   string `json:"region"`
 	Language string `json:"lang"`
 	Token    string `json:"token"`
@@ -202,7 +202,7 @@ type RpgDownloadC struct {
 // /api/rpgreview
 type RpgReviewC struct {
 	Review   int    `json:"review"`
-	SID      int    `json:"sid"`
+	Sid      int    `json:"sid"`
 	Region   string `json:"region"`
 	Language string `json:"lang"`
 	Token    string `json:"token"`
@@ -211,7 +211,7 @@ type RpgReviewS GenericS
 
 // /api/infomercial (reporting)
 type InfomercialC struct {
-	SID    int    `json:"sid"`
+	Sid    int    `json:"sid"`
 	Info1  int    `json:"info1"`
 	Info2  int    `json:"info2"`
 	Info3  int    `json:"info3"`
@@ -282,7 +282,7 @@ type RpgDeleteC struct {
 	Region   string `json:"region"`
 	Language string `json:"lang"`
 	Token    string `json:"token"`
-	SID      int    `json:"sid"`
+	Sid      int    `json:"sid"`
 }
 type RpgDeleteS GenericS
 

@@ -72,7 +72,7 @@ func getContestListEntries(region string) (map[string]ContestListEntry, error) {
 		}
 
 		contestListEntries[strconv.Itoa(cnt)] = ContestListEntry{
-			ID:          strconv.Itoa(id),
+			Id:          strconv.Itoa(id),
 			Name:        base64.StdEncoding.EncodeToString([]byte(name)),
 			ApplyStart:  applyStart.Format("2006-01-02 15:04:05"),
 			ApplyEnd:    applyEnd.Format("2006-01-02 15:04:05"),
@@ -151,10 +151,10 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, contest,
 		}
 
 		rpgListEntry := RpgListEntry{
-			SID:            strconv.Itoa(sid),
-			SUID:           strconv.Itoa(suid),
+			Sid:            strconv.Itoa(sid),
+			Suid:           strconv.Itoa(suid),
 			Title:          base64.StdEncoding.EncodeToString([]byte(title)),
-			UName:          base64.StdEncoding.EncodeToString([]byte(uname)),
+			Uname:          base64.StdEncoding.EncodeToString([]byte(uname)),
 			Password:       password,
 			Updt:           updt.Format("2006-01-02 15:04:05"),
 			DataBlockSize:  strconv.Itoa(datablocksize),
@@ -169,7 +169,7 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, contest,
 			Comment:        base64.StdEncoding.EncodeToString([]byte(comment)),
 			Contest:        strconv.Itoa(contest),
 			Owner:          strconv.Itoa(owner),
-			DLCount:        strconv.Itoa(dlcount),
+			DlCount:        strconv.Itoa(dlcount),
 		}
 
 		// the genre system is so bad there's probably no better way to do this
