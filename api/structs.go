@@ -16,7 +16,9 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package ds
+package api
+
+import "encoding/json"
 
 type GenericC struct {
 	Region string `json:"region"`
@@ -283,3 +285,16 @@ type RpgDeleteC struct {
 	SID      int    `json:"sid"`
 }
 type RpgDeleteS GenericS
+
+// json marshalers
+func (l RpgListS) MarshalJSON() ([]byte, error) {
+	tmp := make(map[string]any)
+
+	for id, entry := range l.RpgListEntries {
+		tmp[id] = entry
+	}
+
+	tmp["endcode"] = l.EndCode
+
+	return json.Marshal(tmp)
+}

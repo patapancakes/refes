@@ -16,104 +16,17 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package ds
+package api
 
 import (
 	"encoding/base64"
-	"encoding/binary"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
-	"log"
-	"net/http"
-	"net/url"
 	"os"
-	"unicode/utf16"
-	"unicode/utf8"
 
 	"github.com/klauspost/compress/zstd"
 )
-
-func HandleRequest(w http.ResponseWriter, r *http.Request) {
-	log.Printf("INFO: request to %s\n", r.RequestURI)
-
-	if r.Method != "POST" {
-		log.Printf("ERROR: %s method not supported\n", r.Method)
-		return
-	}
-
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		log.Printf("ERROR: failed to read request body: %s\n", err)
-		return
-	}
-
-	if len(body) == 0 {
-		log.Println("ERROR: empty request body")
-		return
-	}
-
-	if r.Header.Get("Content-Type") == "application/x-www-form-urlencoded" {
-		bodyUnescaped, err := url.PathUnescape(string(body))
-		if err != nil {
-			log.Printf("ERROR: failed to unescape request body: %s\n", err)
-			return
-		}
-
-		if len(bodyUnescaped) < 5 || bodyUnescaped[:5] != "args=" { // should be safe
-			log.Println("ERROR: malformed request body")
-			return
-		}
-
-		body = []byte(bodyUnescaped[5:])
-	}
-
-	var response []byte
-	switch r.RequestURI {
-	case "/api/username": // register username
-		response, err = handleUsername(body)
-	case "/api/flags": // get server flags and user info
-		response, err = handleFlags(body)
-	case "/api/signin": // make presence known to server?
-		response, err = handleSignIn(body)
-	case "/api/news": // get news
-		response, err = handleNews(body)
-	case "/api/contestlist": // get contest list
-		response, err = handleContestList(body)
-	case "/api/rpglist", "/api/rpglisttitle", "/api/rpglistuname", "/api/rpglistsuid", "/api/rpglistpassword": //, "/api/myrpglist": // get rpg list of some kind
-		response, err = handleRpgList(body, r.RequestURI[5:])
-	case "/api/rpgdownload": // download rpg
-		response, err = handleRpgDownload(body)
-	case "/api/rpgreview": // review rpg
-		response, err = handleRpgReview(body)
-	case "/api/infomercial": // report rpg
-		response, err = handleInfomercial(body)
-	case "/api/rpgupload": // upload rpg
-		response, err = handleRpgUpload(body)
-	case "/api/rpgdelete": // delete rpg
-		response, err = handleRpgDelete(body)
-	default:
-		err = fmt.Errorf("unknown endpoint: %s", r.RequestURI)
-	}
-	if err != nil {
-		log.Printf("ERROR: handler for %s returned error: %s\n", r.RequestURI, err)
-
-		w.WriteHeader(http.StatusBadRequest) // write header so we don't cause bad gateway
-		return
-	}
-
-	if utf8.Valid(response) {
-		respUtf16 := utf16.Encode([]rune(string(response)))
-
-		response = make([]byte, len(respUtf16)*2)
-		for i, v := range respUtf16 {
-			binary.LittleEndian.PutUint16(response[i*2:i*2+2], v)
-		}
-	}
-
-	w.Write(response)
-}
 
 func handleUsername(body []byte) ([]byte, error) {
 	usernameC := &UsernameC{}
