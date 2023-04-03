@@ -229,22 +229,22 @@ func handleRpgList(body []byte, kind string) ([]byte, error) {
 	// a lot of sanitization is done here
 
 	var sort string
-	direction := "asc"
+	direction := "ASC"
 	switch {
 	case rpgListC.SortUpdt != "":
 		sort = "updt"
 		if rpgListC.SortUpdt == "desc" {
-			direction = "desc"
+			direction = "DESC"
 		}
 	case rpgListC.SortDLCount != "":
 		sort = "dlcount"
 		if rpgListC.SortDLCount == "desc" {
-			direction = "desc"
+			direction = "DESC"
 		}
 	case rpgListC.SortReviewAve != "":
 		sort = "reviewave"
 		if rpgListC.SortReviewAve == "desc" {
-			direction = "desc"
+			direction = "DESC"
 		}
 	}
 
