@@ -89,7 +89,7 @@ func getContestListEntries(region string) (map[string]ContestListEntry, error) {
 // filter | title - uname - suid - password
 // sort | updt - dlcount - reviewave
 // direction | asc - desc
-func getRpgListEntries(region, filter, keyword, sort, direction string, contest, famer, count, offset int) (map[string]RpgListEntry, error) {
+func getRpgListEntries(region, filter, keyword, sort, direction string, contest, award, famer, count, offset int) (map[string]RpgListEntry, error) {
 	var params []any
 
 	table := "games_us"
@@ -113,6 +113,9 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, contest,
 	case contest != 0:
 		query += " WHERE contest = ?"
 		params = append(params, contest)
+	case award != -1:
+		query += " WHERE award = ?"
+		params = append(params, award)
 	case famer != 0:
 		query += " WHERE famer = ?"
 		params = append(params, famer)

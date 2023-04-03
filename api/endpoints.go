@@ -183,7 +183,7 @@ func handleRpgList(body []byte, kind string) ([]byte, error) {
 		keyword = string(decoded)
 	}
 
-	rpgListEntries, err := getRpgListEntries(rpgListC.Region, filter, keyword, sort, direction, rpgListC.Contest, rpgListC.Famer, rpgListC.RecNum, rpgListC.Offset)
+	rpgListEntries, err := getRpgListEntries(rpgListC.Region, filter, keyword, sort, direction, rpgListC.Contest, rpgListC.Award, rpgListC.Famer, rpgListC.RecNum, rpgListC.Offset)
 	if err != nil {
 		return nil, err
 	}
