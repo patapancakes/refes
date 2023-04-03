@@ -92,12 +92,13 @@ func getContestListEntries(region string) (map[string]ContestListEntry, error) {
 func getRpgListEntries(region, filter, keyword, sort, direction string, contest, award, famer, count, offset int) (map[string]RpgListEntry, error) {
 	var params []any
 
-	table := "games_us"
-	if region == "JPN" {
-		table = "games_jp"
-	}
+	query := "SELECT * FROM"
 
-	query := "SELECT * FROM " + table
+	if region == "JPN" {
+		query += " games_jp"
+	} else {
+		query += " games_us"
+	}
 
 	switch {
 	case filter != "":
