@@ -50,7 +50,7 @@ func newDbConn() *sql.DB {
 
 func getContestListEntries(region string) (map[string]ContestListEntry, error) {
 	table := "contests_us"
-	if region == "JPN" {
+	if region == "JPN" || region == "" {
 		table = "contests_jp"
 	}
 
@@ -94,7 +94,7 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, contest,
 
 	query := "SELECT * FROM"
 
-	if region == "JPN" {
+	if region == "JPN" || region == "" {
 		query += " games_jp"
 	} else {
 		query += " games_us"
@@ -258,7 +258,7 @@ func getRpgListEntries(region, filter, keyword, sort, direction string, contest,
 
 func getRpgPublic(sid int, region string) (bool, error) {
 	table := "games_us"
-	if region == "JPN" {
+	if region == "JPN" || region == "" {
 		table = "games_jp"
 	}
 

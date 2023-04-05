@@ -211,7 +211,7 @@ func handleRpgDownload(body []byte) ([]byte, error) {
 	}
 
 	gameDir := "games_us"
-	if rpgDownloadC.Region == "JPN" {
+	if rpgDownloadC.Region == "JPN" || rpgDownloadC.Region == "" {
 		gameDir = "games_jp"
 	}
 
