@@ -36,6 +36,10 @@ func Init(proto *string, address *string) error {
 
 	log.Printf("INFO: server starting on %s\n", *address)
 
+	if *proto == "unix" {
+		os.Remove(*address)
+	}
+
 	listener, err := net.Listen(*proto, *address)
 	if err != nil {
 		return err
