@@ -23,18 +23,29 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"net/http"
 	"net/url"
+	"os"
 	"unicode/utf16"
 	"unicode/utf8"
 )
 
-func Init(address *string, port *int) error {
+func Init(proto *string, address *string) error {
 	http.HandleFunc("/", handleRequest)
 
-	log.Printf("INFO: server starting on %s:%d\n", *address, *port)
+	log.Printf("INFO: server starting on %s\n", *address)
 
-	err := http.ListenAndServe(fmt.Sprintf("%s:%d", *address, *port), nil)
+	listener, err := net.Listen(*proto, *address)
+	if err != nil {
+		return err
+	}
+
+	if *proto == "unix" {
+		os.Chmod(*address, 0777)
+	}
+
+	err = http.Serve(listener, nil)
 	if err != nil {
 		return err
 	}

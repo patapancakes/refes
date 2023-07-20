@@ -25,12 +25,11 @@ import (
 )
 
 func main() {
-	address := flag.String("address", "0.0.0.0", "address for the server to listen on")
-	port := flag.Int("port", 8080, "port for the server to listen on")
-	
+	proto := flag.String("proto", "tcp", "protocol to use (\"tcp\", \"unix\", etc)")
+	addr := flag.String("addr", "0.0.0.0:8100", "address to listen on")
 	flag.Parse()
 
-	err := api.Init(address, port)
+	err := api.Init(proto, addr)
 	if err != nil {
 		log.Fatalln(err)
 	}
